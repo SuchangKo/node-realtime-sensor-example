@@ -68,7 +68,7 @@ db.collection('sensordb', function(err, collection) {
 		
                 //send out to websocket
                 if(websocket){
-                    websocket.emit('sensor', currentTemperature);
+                   io.sockets.emit('sensor', currentTemperature);
                 }
             });
         }else{
@@ -91,5 +91,6 @@ var io = require('socket.io').listen(server);
 var websocket;
 
 io.sockets.on('connection', function (socket) {
+    socket.join('sensor');
     websocket = socket;
 });
